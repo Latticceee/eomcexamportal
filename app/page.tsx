@@ -20,7 +20,14 @@ export default function ExamPortal() {
   const [tabSwitchCount, setTabSwitchCount] = useState(0)
   const [showWarning, setShowWarning] = useState(false)
   const [hasRealFormData, setHasRealFormData] = useState(false)
-  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`)
+  const [sessionId, setSessionId] = useState<string>("")
+
+  // Generate sessionId only on the client to avoid hydration errors
+  useEffect(() => {
+    if (!sessionId) {
+      setSessionId(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`)
+    }
+  }, [sessionId])
 
   // Use ReturnType<typeof setInterval> for browser compatibility
   const formCheckRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -98,7 +105,7 @@ export default function ExamPortal() {
         <header className="relative z-10 border-b border-gray-800/50">
           <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="text-center">
-              <h1 className="text-3xl font-bold text-white mb-2">Egyptian Online Math Competition</h1>
+              <h1 className="text-3xl font-bold text-white mb-2">Egyptian  Math Competition</h1>
               <p className="text-gray-400">Exam Portal</p>
             </div>
           </div>
@@ -138,7 +145,7 @@ export default function ExamPortal() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl font-bold text-white">EOMC Exam Portal</h1>
-              <p className="text-sm text-gray-400">Egyptian Online Math Competition</p>
+              <p className="text-sm text-gray-400">Egyptian  Math Competition</p>
             </div>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2 text-gray-300">
@@ -182,7 +189,7 @@ export default function ExamPortal() {
             <CardContent>
               <div className="w-full h-[700px] rounded-lg overflow-hidden border border-gray-800/50">
                 {/* The PDF is now served locally from the public folder for better performance. */}
-                <iframe src="/Online_Round_Exam.pdf" className="w-full h-full bg-white" allow="autoplay" title="Exam Questions"/>
+                <iframe src="/Final_Round_Exam.pdf" className="w-full h-full bg-white" allow="autoplay" title="Exam Questions"/>
               </div>
             </CardContent>
           </Card>
@@ -195,7 +202,7 @@ export default function ExamPortal() {
             </CardHeader>
             <CardContent>
               <div className="w-full h-[700px] rounded-lg overflow-hidden border border-gray-800/50">
-                <iframe className="airtable-embed w-full h-full" src={`https://airtable.com/embed/appPLHy5FS2oXJhKt/pagUoOCii6OPMWPZd/form?prefill_SessionID=${sessionId}`} frameBorder="0" width="100%" height="700" style={{ background: "white" }} title="Answer Submission Form"/>
+                  <iframe className="airtable-embed w-full h-full" src="https://airtable.com/embed/appPLHy5FS2oXJhKt/pagUoOCii6OPMWPZd/form" frameBorder="0" width="100%" height="700" style={{ background: "white" }} title="Answer Submission Form"/>
               </div>
             </CardContent>
           </Card>

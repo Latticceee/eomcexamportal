@@ -15,7 +15,13 @@ export default function DebugPage() {
       const data = await response.json()
       setEnvTest(data)
     } catch (error) {
-      setEnvTest({ error: error.toString() })
+      let errorMessage = "Unknown error"
+      if (error instanceof Error) {
+        errorMessage = error.message
+      } else if (typeof error === "string") {
+        errorMessage = error
+      }
+      setEnvTest({ error: errorMessage })
     }
     setLoading(false)
   }
