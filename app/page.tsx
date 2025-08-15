@@ -208,9 +208,29 @@ export default function ExamPortal() {
               </p>
             </CardHeader>
             <CardContent>
-              <div className="w-full h-[700px] rounded-lg overflow-hidden border border-gray-800/50">
-                  <iframe className="airtable-embed w-full h-full" src="https://airtable.com/embed/appPLHy5FS2oXJhKt/pagUoOCii6OPMWPZd/form" frameBorder="0" width="100%" height="700" style={{ background: "white" }} title="Answer Submission Form"/>
-              </div>
+<div className="w-full h-[700px] rounded-lg overflow-hidden border border-gray-800/50">
+  {sessionId ? (
+    // Only render the iframe if the sessionId exists
+    <iframe
+      key={sessionId} // Adding a key helps React update the iframe correctly
+      className="airtable-embed w-full h-full"
+      // IMPORTANT: Make sure 'prefill_SessionID' matches the name from the API docs!
+      // If your field name has a space, like "Session ID", you must encode it.
+      // For "Session ID", it would be `prefill_Session%20ID=${sessionId}`
+      src={`https://airtable.com/embed/appPLHy5FS2oXJhKt/pagUoOCii6OPMWPZd/form?prefill_SessionID=${sessionId}`}
+      frameBorder="0"
+      width="100%"
+      height="700"
+      style={{ background: "white" }}
+      title="Answer Submission Form"
+    />
+  ) : (
+    // Show a loading message while the sessionId is being generated
+    <div className="flex items-center justify-center h-full">
+      <p className="text-gray-400">Loading submission form...</p>
+    </div>
+  )}
+</div>
             </CardContent>
           </Card>
         </div>
