@@ -167,7 +167,7 @@ export default function ExamPortal() {
           <Alert className="border-red-800/50 bg-red-950/50">
             <AlertTriangle className="h-4 w-4 text-red-400" />
             <AlertDescription className="text-red-200">
-              <strong>Warning:</strong> Leaving the exam page has been detected and recorded. Further violations may result in disqualification.
+              <strong>Warning:</strong> Leaving the exam page has been detected and recorded. You might get disqualified, especially if you make more Violations.
             </AlertDescription>
           </Alert>
         </div>
@@ -187,9 +187,16 @@ export default function ExamPortal() {
               <CardTitle className="flex items-center space-x-3 text-white"><FileText className="h-5 w-5" /><span>Examination Questions</span></CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="w-full h-[700px] rounded-lg overflow-hidden border border-gray-800/50">
-                {/* The PDF is now served locally from the public folder for better performance. */}
-                <iframe src="/Final_Round_Exam.pdf" className="w-full h-full bg-white" allow="autoplay" title="Exam Questions"/>
+              <div className="w-full h-[700px]">
+                {/* PDF is now embedded from Google Drive. Only the full PDF appears, no borders. */}
+                <iframe
+                  src="https://drive.google.com/file/d/1OhhWBc8m0uMiOFh8I9Sg3JXRUdjsA4uq/preview"
+                  width="100%"
+                  height="700"
+                  style={{ border: "none" }}
+                  allow="autoplay"
+                  title="Exam PDF"
+                />
               </div>
             </CardContent>
           </Card>
